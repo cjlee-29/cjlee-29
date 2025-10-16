@@ -1,17 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lee Keng Tiong – Portfolio</title>
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; }
-    h1 { color: #4CAF50; }
-  </style>
+  <meta name="description" content="Portfolio of Lee Keng Tiong – Game QA / Software Tester and Web/App Projects." />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Hello, I'm Lee Keng Tiong!</h1>
-  <p>Welcome to my portfolio website 🚀</p>
-  <p>QA Tester | Game Operations | Web Developer</p>
+  <header class="header">
+    <span class="badge">Hi, I’m Lee Keng Tiong</span>
+    <h1>Game QA / Software Tester with a knack for clean UX and data-driven decisions.</h1>
+    <p class="lead">
+      I test games, web, and APIs; write clear bug reports (JIRA/Trello); and build simple apps/sites.
+      Below are a few things I’m working on — click any card to view more details.
+    </p>
+    <nav class="nav">
+      <a href="mailto:cjlee220011@gmail.com">Email</a>
+      <a href="https://github.com/cjlee-29" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/your-link" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <div class="grid">
+      <a class="card" href="expense.html">
+        <span class="thumb">
+          <img src="images/expense-preview.jpg" alt="Preview of Expense & Budget Tracker" loading="lazy" />
+        </span>
+        <div class="body">
+          <h3>Expense & Budget Tracker</h3>
+          <p>Offline tracker with categories, monthly totals, and charts. Preview only — click for details.</p>
+        </div>
+      </a>
+
+      <a class="card" href="game.html">
+        <span class="thumb">
+          <img src="images/game-preview.jpg" alt="Preview of Tap-to-Jump Mini Game" loading="lazy" />
+        </span>
+        <div class="body">
+          <h3>Tap-to-Jump Mini Game</h3>
+          <p>Lightweight endless runner prototype with score save. Preview only — click for details.</p>
+        </div>
+      </a>
+
+      <a class="card" href="holiday.html">
+        <span class="thumb">
+          <img src="images/holiday-preview.jpg" alt="Preview of Malaysia Holiday Countdown app" loading="lazy" />
+        </span>
+        <div class="body">
+          <h3>MY Holiday Countdown</h3>
+          <p>Local public holiday list & event countdown. Preview only — click for details.</p>
+        </div>
+      </a>
+
+      <a class="card" href="portfolio.html">
+        <span class="thumb">
+          <img src="images/portfolio-preview.jpg" alt="Preview of Portfolio website project" loading="lazy" />
+        </span>
+        <div class="body">
+          <h3>Portfolio Website</h3>
+          <p>Clean, responsive site with projects, skills, and contact. Preview only — click for details.</p>
+        </div>
+      </a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    © <span id="y"></span> Lee Keng Tiong — Built with GitHub Pages
+  </footer>
+
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 </body>
 </html>
