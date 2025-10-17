@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="王者碰碰碰" />
+    <link rel="icon" href="img/WZ_logo.png" />
+    <title>王者碰碰碰</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        scroll-behavior: smooth; /* Smooth scrolling */
+        overflow-x: hidden;
+      }
+
+      /* Fixed header that stays on top */
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #333333;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px;
+        height: 100px; /* Fixed height */
+        z-index: 1000;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Header logo */
+      .logo {
+        max-height: 90%;
+        height: auto;
+      }
+
+      /* Buttons container on the right */
+      .header-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      /* Download button */
+      .playnow-btn {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        margin-right: 20px;
+      }
+
+      .playnow-btn:hover {
+        background-color: #218838;
+      }
+
+      /* Language button */
+      .language-btn {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+
+      .language-btn:hover {
+        background-color: #0069d9;
+      }
+
+      /* Full-width header image */
+      .header-image {
+        height: auto;
+        display: block;
+        max-height: 80vh;
+        object-fit: cover;
+        justify-self: center;
+      }
+
+      .header-image-container {
+        position: relative;
+        width: 100%;
+        height: auto;
+        top: 12%;
+      }
+
+      /* Overlay Content */
+      .overlay-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+      }
+
+      .container {
+        max-width: 1200px; /* Make the container smaller */
+        width: 100%; /* Make the container responsive */
+        margin: 0 auto;
+        padding: 20px;
+        text-align: center;
+        height: 100%;
+      }
+
+      /* Ensure sections have enough space above to not overlap with header */
+      section {
+        height: 100vh; /* Full viewport height */
+        padding-top: 120px; /* Account for fixed header height (100px) plus some extra spacing */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        box-sizing: border-box;
+        scroll-snap-align: start;
+      }
+
+      /* Section backgrounds with full-size background images */
+      .game-description {
+        background: url("img/background1.png") center/cover no-repeat;
+      }
+
+      .gameplay-display {
+        background: url("img/background2.png") center/cover no-repeat;
+      }
+
+      .character-display {
+        background: url("img/background3.png") center/cover no-repeat;
+        position: relative;
+      }
+
+      .character-display .container {
+        overflow: hidden; /* Hide any content that exceeds the container */
+        position: relative;
+        max-width: 600px; /* Limit the maximum width of the container */
+        height: auto; /* Adjust the height as needed */
+      }
+
+      .character-display img {
+        max-width: 100%; /* Restrict image width to 90% of section */
+        height: auto; /* Maintain image aspect ratio */
+        margin: 0 auto; /* Center the image */
+        border-radius: 10px;
+        object-fit: contain; /* Ensure the image fits within the container */
+      }
+
+      .character-slide-text {
+        background-color: rgb(255, 255, 255, 0.8);
+      }
+
+      .paixing {
+        background: url("img/background4.png") center/cover no-repeat;
+        position: relative; /* Keep footer within last section */
+      }
+
+      .paixing-container {
+        margin-top: 20%;
+      }
+
+      .mahjong-tiles {
+        max-width: 100%;
+        width: auto;
+        max-height: 600px;
+        padding: 10px;
+      }
+
+      .mahjong-tiles img {
+        height: auto;
+        border-radius: 10px;
+        margin: 5px;
+      }
+
+      /* Character Carousel */
+      .character-carousel {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 100%;
+        overflow: hidden;
+      }
+
+      .character-carousel p {
+        font-size: x-large;
+        font-weight: bold;
+      }
+
+      .character-slide {
+        display: none;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        text-align: center;
+      }
+
+      .character-slide.active {
+        display: block;
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .character-slide.left-preview,
+      .character-slide.right-preview {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0.3;
+        pointer-events: none;
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+      }
+
+      .character-slide img {
+        max-width: 500px;
+        height: auto;
+      }
+
+      .carousel-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        padding: 10px;
+        cursor: pointer;
+        z-index: 10;
+      }
+
+      .carousel-arrow.left {
+        left: 20px;
+      }
+
+      .carousel-arrow.right {
+        right: 20px;
+      }
+
+      /* Sticky navigation for smooth scrolling */
+      .nav {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .nav a {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+
+      .nav a:hover {
+        background-color: #0069d9;
+      }
+
+      html {
+        scroll-snap-type: y mandatory;
+      }
+
+      /* Slideshow container */
+      .gameplay-grid {
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+        margin: 10% auto;
+        height: 500px; /* Adjust as necessary */
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .gameplay-slide {
+        position: absolute;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+      }
+
+      .gameplay-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 20px;
+      }
+
+      .gameplay-slide.active {
+        opacity: 1;
+      }
+
+      /* Slideshow navigation arrows */
+      .gameplay-arrow-left,
+      .gameplay-arrow-right {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 30px;
+        z-index: 10;
+      }
+
+      .gameplay-arrow-left {
+        left: 0;
+      }
+
+      .gameplay-arrow-right {
+        right: 0;
+      }
+
+      .gameplay-display .container {
+        position: relative;
+        width: 100%;
+      }
+
+      .gameplay-container {
+        margin-top: 10%;
+      }
+
+      footer {
+        height: 40vh; /* Footer takes up half of the viewport height */
+        background-color: #333;
+        color: white;
+        padding: 40px 0;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        padding: 0;
+      }
+
+      .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .social-icons {
+        display: flex;
+        justify-content: center; /* Centers horizontally */
+        align-items: center; /* Centers vertically */
+        gap: 15px; /* Space between icons */
+        padding: 20px 0; /* Add some padding for space around the icons */
+      }
+
+      .social-icon a {
+        color: white;
+        margin: 0 10px;
+        font-size: 24px;
+        transition: color 0.3s;
+      }
+
+      .social-icon a:hover {
+        color: #4679ef;
+      }
+
+      .social-icon svg {
+        width: 50px;
+        height: 50px;
+      }
+
+      .social-icon svg:hover {
+        opacity: 0.8;
+        cursor: pointer;
+      }
+
+      .footer-links a {
+        color: white;
+        margin: 0 10px;
+        font-size: 14px;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-logo img {
+        max-width: 150px;
+      }
+
+      .copyright {
+        font-size: 14px;
+        margin-top: 20px;
+      }
+
+      /* Preregistration Section Styles */
+      .preregistration-section {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #fff;
+        text-align: center;
+      }
+
+      .preregistration-section h2 {
+        font-size: 2em;
+        margin-bottom: 10px;
+        text-shadow: 1px 1px 2px #000;
+      }
+
+      .progress-container {
+        width: 80%;
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 25px;
+        overflow: hidden;
+        height: 30px;
+        margin-bottom: 20px;
+      }
+
+      .progress-bar {
+        background-color: #00aaff;
+        height: 100%;
+        width: 0%;
+        position: relative;
+        transition: width 1s ease-in-out;
+      }
+
+      #progress-text {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-weight: bold;
+        text-shadow: 1px 1px 2px #000;
+      }
+
+      .rewards {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 80%;
+        margin-bottom: 20px;
+      }
+
+      .reward-tier {
+        text-align: center;
+        flex: 1;
+      }
+
+      .reward-tier img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        margin-bottom: 5px;
+      }
+
+      .reward-tier p {
+        font-size: 0.9em;
+        color: #fff;
+        text-shadow: 1px 1px 2px #000;
+      }
+
+      /* Preregister Button */
+      #preregisterBtn {
+        color: #333;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        height: 53px;
+      }
+
+      /* Social Media Icons Styles for Game Description */
+      .game-social-icons {
+        position: fixed;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 1050;
+      }
+
+      .game-social-icon a {
+        color: white;
+        padding: 12px;
+        border-radius: 50%;
+        transition: color 0.3s;
+      }
+
+      .game-social-icon svg {
+        width: 70px;
+        height: 70px;
+        fill: #00aaff;
+      }
+
+      .game-social-icon svg:hover {
+        color: #000000; /* Highlight color on hover */
+        opacity: 0.6;
+        cursor: pointer;
+      }
+      @media (max-width: 1400px) {
+        .game-social-icons {
+          display: none;
+        }
+        .mahjong-tiles {
+          overflow: scroll;
+        }
+        .paixing-container {
+          margin-top: 10%;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .header-image {
+          max-height: 60vh; /* Reduce height limit on medium screens */
+        }
+
+        .preregistration-section {
+          padding: 15px;
+        }
+        .rewards {
+          align-items: center;
+        }
+
+        .header-image-container {
+          position: relative;
+          height: 100%;
+        }
+
+        .overlay-content {
+          position: absolute;
+          top: 360px;
+          left: 0;
+          width: 100%;
+          padding: 20px;
+          background: rgba(
+            0,
+            0,
+            0,
+            0.5
+          ); /* Adjust opacity to enhance readability */
+          box-sizing: border-box;
+          transition: padding 0.3s ease; /* Smooth transition for padding adjustments */
+        }
+
+        .header-image {
+          max-height: 60vh; /* Reduce header image height to provide more room for text */
+        }
+
+        .preregistration-section {
+          padding: 10px; /* Reduce padding to save space */
+        }
+
+        .progress-container,
+        .rewards {
+          width: 100%; /* Full width for better fit on small screens */
+        }
+
+        .reward-tier {
+          padding: 5px; /* Reduce padding around rewards for compactness */
+          display: block; /* Stack rewards vertically */
+        }
+
+        .reward-tier img {
+          width: 50px; /* Smaller icons for compact display */
+          height: 50px;
+        }
+
+        .reward-tier p {
+          font-size: 0.8em; /* Smaller text */
+        }
+
+        .game-social-icons {
+          display: none;
+        }
+
+        .game-social-icon svg {
+          width: 35px; /* Smaller icons for compact layout */
+          height: 35px;
+        }
+
+        .gameplay-container {
+          margin-top: 20%;
+        }
+      }
+      /* Media query for mobile devices */
+      @media (max-width: 600px) {
+        /* Increase header size on mobile */
+        .header {
+          height: 60px;
+        }
+
+        .header-image {
+          max-height: 50vh; /* Further reduce height limit on small screens */
+        }
+
+        /* Make logo bigger */
+        .logo {
+          height: 90%;
+        }
+
+        /* Increase button size for mobile */
+        .playnow-btn,
+        .language-btn {
+          padding: 10px 20px;
+        }
+
+        .container {
+          max-width: 90%; /* Smaller container for mobile */
+          margin-top: 30px; /* Less margin on top for mobile */
+        }
+
+        .character-display h2,
+        .paixing h2,
+        .game-description-info h2 {
+          font-size: 22px;
+        }
+
+        .character-display img,
+        .paixing img {
+          max-width: 100%; /* On mobile, make sure images take full width */
+        }
+
+        .mahjong-tiles {
+          flex-direction: column;
+        }
+
+        .mahjong-tiles img {
+          width: 90%;
+        }
+
+        .game-description-info img,
+        .paixing img {
+          max-width: 100%;
+        }
+
+        .gameplay-slide {
+          position: absolute;
+          opacity: 0; /* All slides are hidden initially */
+          top: 30%;
+          left: 0;
+          height: auto;
+          transition: opacity 0.5s ease-in-out; /* Smooth fade transition */
+        }
+
+        .gameplay-grid {
+          margin-top: 0;
+        }
+
+        .gameplay-slide.active {
+          opacity: 1; /* Show active slide */
+        }
+
+        .gameplay-arrow-left,
+        .gameplay-arrow-right {
+          font-size: 20px; /* Smaller arrows on mobile */
+        }
+
+        .footer-logo img {
+          max-width: 120px;
+        }
+
+        .social-icons a {
+          font-size: 20px;
+        }
+
+        .preregistration-section {
+          padding: 15px;
+        }
+
+        .game-social-icons {
+          position: static;
+          flex-direction: row;
+          justify-content: center;
+          margin-top: 20px;
+          transform: none;
+        }
+
+        .gameplay-container {
+          margin-top: 30%;
+        }
+
+        .overlay-content {
+          top: 320px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sticky Header with Logo and Buttons -->
+    <div class="header">
+      <!-- Game Logo -->
+      <img src="img/WZ_logo.png" alt="Game Logo" class="logo" />
+
+      <!-- Buttons on the right -->
+      <div class="header-buttons">
+        <a href="#" class="language-btn">中文</a>
+        <a href="#" class="playnow-btn" id="playnowBtn">立即预注册</a>
+      </div>
+    </div>
+
+    <!-- Social Media Icons -->
+    <div class="game-social-icons">
+      <a
+        href="https://www.facebook.com/acezmetapong"
+        target="_blank"
+        class="game-social-icon"
+      >
+        <!-- Facebook SVG Icon -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          fill="currentColor"
+        >
+          <path
+            d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.5 90.7 225.9 209 245v-173h-63v-72h63v-55.2c0-62.2 37-96.8 93.5-96.8 27.1 0 55.5 4.8 55.5 4.8v61h-31.3c-30.8 0-40.4 19.1-40.4 38.7V256h68.7l-11 72h-57.7v173C413.3 481.9 504 379.5 504 256z"
+          />
+        </svg>
+      </a>
+      <a
+        href="https://www.instagram.com/acezmeta_pong/"
+        target="_blank"
+        class="game-social-icon"
+      >
+        <!-- Instagram SVG Icon -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-instagram"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"
+          />
+        </svg>
+      </a>
+    </div>
+
+    <!-- Game Description Section -->
+    <section id="game-description" class="game-description">
+      <div class="container">
+        <!-- Header Image with Overlay -->
+        <div class="header-image-container">
+          <img
+            src="img/header_image.png"
+            alt="Game Header Image"
+            class="header-image"
+          />
+
+          <!-- Overlay Content (Progress Bar and Social Media Icons) -->
+          <div class="overlay-content">
+            <!-- Preregistration Progress Bar -->
+            <div class="preregistration-section">
+              <h2>预注册人数已达 <span id="preregister-count">0</span></h2>
+
+              <!-- Progress Bar -->
+              <div class="progress-container">
+                <div class="progress-bar" id="progress-bar">
+                  <span id="progress-text">0%</span>
+                </div>
+              </div>
+
+              <!-- Reward Milestones -->
+              <div class="rewards">
+                <div class="reward-tier">
+                  <img src="img/diamond_pack_02.png" alt="Reward 1" />
+                  <p>10,000 注册<br />·5 钻石·</p>
+                </div>
+                <div class="reward-tier">
+                  <img src="img/diamond_pack_03.png" alt="Reward 2" />
+                  <p>30,000 注册<br />·10 钻石·</p>
+                </div>
+                <div class="reward-tier">
+                  <img src="img/C001_Sarah_skin_03.png" alt="Reward 3" />
+                  <p>50,000 注册<br />·稀有游戏皮肤·</p>
+                </div>
+                <div class="reward-tier">
+                  <img src="img/diamond_pack_02.png" alt="Reward 4" />
+                  <p>70,000 注册<br />·15 钻石·</p>
+                </div>
+                <div class="reward-tier">
+                  <img src="img/diamond_pack_05.png" alt="Reward 5" />
+                  <p>100,000 注册<br />·20 钻石·</p>
+                </div>
+              </div>
+
+              <!-- Preregister Button -->
+              <a href="#" id="preregisterBtn"
+                ><img src="img/GooglePlay.png" alt="GooglePlay"
+              /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Character Display Section (Carousel) -->
+    <section id="character-display" class="character-display">
+      <div class="container">
+        <h2>游戏角色</h2>
+
+        <div class="character-carousel">
+          <span class="carousel-arrow left" onclick="prevCharacter()"
+            >&#10094;</span
+          >
+          <div class="character-slide active">
+            <img src="img/character1.png" alt="Sarah" />
+            <div class="character-slide-text"><p>Sarah</p></div>
+          </div>
+          <div class="character-slide">
+            <img src="img/character2.png" alt="Character 2" />
+            <div class="character-slide-text">
+              <p>Coming Soon!</p>
+            </div>
+          </div>
+          <!-- Add more character slides as needed -->
+          <span class="carousel-arrow right" onclick="nextCharacter()"
+            >&#10095;</span
+          >
+        </div>
+      </div>
+    </section>
+
+    <section id="gameplay-display" class="gameplay-display">
+      <div class="container">
+        <div class="gameplay-container">
+          <h2>游戏画面</h2>
+          <div class="gameplay-grid">
+            <div class="gameplay-slide active">
+              <img src="img/gameplay1.png" alt="Gameplay Image 1" />
+            </div>
+            <div class="gameplay-slide">
+              <img src="img/gameplay2.png" alt="Gameplay Image 2" />
+            </div>
+            <!-- Add more gameplay slides as needed -->
+          </div>
+
+          <!-- Slideshow navigation arrows -->
+          <span class="gameplay-arrow-left" onclick="prevSlide()"
+            >&#10094;</span
+          >
+          <span class="gameplay-arrow-right" onclick="nextSlide()"
+            >&#10095;</span
+          >
+        </div>
+      </div>
+    </section>
+
+    <section id="paixing" class="paixing">
+      <div class="container">
+        <div class="paixing-container">
+          <h2>爆番牌</h2>
+          <div class="mahjong-tiles">
+            <img src="img/mahjong_tile1.png" alt="Mahjong Tile 1" />
+            <img src="img/mahjong_tile2.png" alt="Mahjong Tile 2" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <section>
+        <div class="footer-container">
+          <div class="social-icons">
+            <!-- Facebook -->
+            <div class="social-icon">
+              <a href="https://www.facebook.com/acezmetapong">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.5 90.7 225.9 209 245v-173h-63v-72h63v-55.2c0-62.2 37-96.8 93.5-96.8 27.1 0 55.5 4.8 55.5 4.8v61h-31.3c-30.8 0-40.4 19.1-40.4 38.7V256h68.7l-11 72h-57.7v173C413.3 481.9 504 379.5 504 256z"
+                  />
+                </svg>
+              </a>
+            </div>
+            <!-- Instagram -->
+            <div class="social-icon">
+              <a href="https://www.instagram.com/acezmeta_pong/">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-instagram"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="footer-logo">
+            <img src="img/acezmeta_logo.png" alt="Company Logo" />
+          </div>
+
+          <div class="copyright">
+            &copy; 2024 Acezmeta Sdn Bhd. All Rights Reserved.
+          </div>
+        </div>
+      </section>
+    </footer>
+
+    <script>
+      let currentCharacter = 0;
+      const characters = document.querySelectorAll(".character-slide");
+
+      function showCharacter(index) {
+        characters.forEach((character, i) => {
+          character.classList.remove("active", "left-preview", "right-preview");
+          if (i === index) {
+            character.classList.add("active");
+          }
+          if (i === (index - 1 + characters.length) % characters.length) {
+            character.classList.add("left-preview");
+          }
+          if (i === (index + 1) % characters.length) {
+            character.classList.add("right-preview");
+          }
+        });
+      }
+
+      function nextCharacter() {
+        currentCharacter = (currentCharacter + 1) % characters.length;
+        showCharacter(currentCharacter);
+      }
+
+      function prevCharacter() {
+        currentCharacter =
+          (currentCharacter - 1 + characters.length) % characters.length;
+        showCharacter(currentCharacter);
+      }
+
+      showCharacter(currentCharacter); // Initialize the first character
+
+      let currentSlide = 0;
+      const slides = document.querySelectorAll(".gameplay-slide");
+      const slideInterval = 4000; // 4 seconds per slide
+
+      function showSlide(index) {
+        slides.forEach((slide, i) => {
+          slide.classList.remove("active");
+          if (i === index) {
+            slide.classList.add("active");
+          }
+        });
+      }
+
+      function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+        console.log("Next slide shown");
+      }
+
+      function prevSlide() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(currentSlide);
+        console.log("Previous slide shown");
+      }
+
+      setInterval(nextSlide, slideInterval); // Auto-play functionality
+      showSlide(currentSlide); // Initial slide display
+
+      // Ensure the script loads after the DOM
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("nextSlide")
+          .addEventListener("click", nextSlide);
+        document
+          .getElementById("prevSlide")
+          .addEventListener("click", prevSlide);
+      });
+
+      // Preregistration Progress Bar Script
+
+      // Set your target count and elements
+      const preregisterTarget = 100000; // Maximum preregistration target
+      const preregisterCountElement =
+        document.getElementById("preregister-count");
+      const progressBar = document.getElementById("progress-bar");
+      const progressText = document.getElementById("progress-text");
+
+      // Set a fixed start date for the calculation
+      const startDate = new Date("2024-11-30T12:00:00"); // Adjust as needed
+
+      // Function to generate a pseudo-random increment between 50 and 100 inclusive, based on a seed
+      function getIncrementForHour(hourNumber) {
+        const x = Math.sin(hourNumber) * 10000;
+        const randomFraction = x - Math.floor(x);
+        const increment = 50 + Math.floor(randomFraction * 51); // 50 to 100 inclusive
+        return increment;
+      }
+
+      // Function to calculate total preregistration count
+      function calculatePreregisterCount() {
+        const currentDate = new Date();
+        const totalHours = Math.floor(
+          (currentDate - startDate) / (1000 * 60 * 60)
+        );
+        let totalCount = 0;
+
+        for (let i = 0; i <= totalHours; i++) {
+          totalCount += getIncrementForHour(i);
+        }
+
+        // Ensure totalCount does not exceed preregisterTarget
+        if (totalCount > preregisterTarget) {
+          totalCount = preregisterTarget;
+        }
+
+        return totalCount;
+      }
+
+      // Function to update preregistration progress
+      function updatePreregistrationProgress() {
+        const preregisterCount = calculatePreregisterCount();
+
+        // Update count display
+        preregisterCountElement.textContent = preregisterCount.toLocaleString();
+
+        // Calculate progress percentage
+        let progressPercentage = (preregisterCount / preregisterTarget) * 100;
+        if (progressPercentage > 100) progressPercentage = 100;
+
+        // Update progress bar width and text
+        progressBar.style.width = progressPercentage + "%";
+        progressText.textContent = Math.floor(progressPercentage) + "%";
+      }
+
+      // Initial update
+      updatePreregistrationProgress();
+
+      // Update the preregistration count periodically (every hour)
+      setInterval(updatePreregistrationCount, 3600000);
+    </script>
+  </body>
+</html>

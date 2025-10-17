@@ -46,7 +46,7 @@ h1{ margin:12px 0 8px; font-size:clamp(28px,4vw,40px); line-height:1.2; }
 
 /* ========== Nav ========== */
 .nav a{
-  color:#023131; text-decoration:none; background:var(--card);
+  color:var(--ice); text-decoration:none; background:var(--card);
   border:1px solid var(--border); padding:8px 12px; border-radius:10px;
   margin-right:8px; display:inline-block; transition:all .15s ease;
 }
