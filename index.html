@@ -1,57 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CJ - Portfolio</title>
-  <link rel="icon" href="images/Logo.png" />
-  <meta name="description" content="Portfolio of Lee Keng Tiong – Game QA / Software Tester and Web/App Projects." />
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <header class="header">
-    <h1>Game QA / Software Tester with a knack for clean UX and data-driven decisions.</h1>
-    <p class="lead">
-      I test games, web, and APIs; write clear bug reports (JIRA/Trello); and build simple apps/sites.
-      Below are a few things I’m working on — click any card to view more details.
-    </p>
-    <nav class="nav">
-      <a href="mailto:cjlee220011@gmail.com">Email</a>
-      <a href="https://github.com/cjlee-29" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://www.linkedin.com/in/cjlee29/" target="_blank" rel="noopener">LinkedIn</a>
-    </nav>
-  </header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CJ - Portfolio</title>
+    <link rel="icon" href="images/Logo.png" />
+    <meta
+      name="description"
+      content="Portfolio of Lee Keng Tiong – Game QA / Software Tester and Web/App Projects."
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <h1>
+        Hi there! I’m Lee Keng Tiong (CJ) — a Game QA and Software Tester who
+        enjoys building clean, user-friendly apps and websites.
+      </h1>
+      <p class="lead">
+        I focus on improving user experience, ensuring quality through careful
+        testing, and experimenting with creative tools that make everyday tasks
+        simpler. Welcome to my portfolio — feel free to explore my projects and
+        see what I’ve been working on!
+      </p>
 
-  <main class="wrap">
-    <div class="grid">
-      <a class="card" href="MahjongCalculator/MahjongCalculator.html">
-        <span class="thumb">
-          <img src="images/3PMahjongCalculator.png" alt="Preview of 3P Mahjong Calculator" loading="lazy" />
-        </span>
-        <div class="body">
-          <h3>3P Calculator</h3>
-          <p>Offline tracker to calculate 3P Mahjong Score. — click for details.</p>
-        </div>
-      </a>
+      <nav class="nav">
+        <a href="mailto:cjlee220011@gmail.com">Email</a>
+        <a href="https://github.com/cjlee-29" target="_blank" rel="noopener"
+          >GitHub</a
+        >
+        <a
+          href="https://www.linkedin.com/in/cjlee29/"
+          target="_blank"
+          rel="noopener"
+          >LinkedIn</a
+        >
+      </nav>
+    </header>
 
+    <main class="wrap">
+      <div class="grid">
+        <a class="card" href="MahjongCalculator/MahjongCalculator.html">
+          <span class="thumb">
+            <img
+              src="images/3PMahjongCalculator.png"
+              alt="Preview of 3P Mahjong Calculator"
+              loading="lazy"
+            />
+          </span>
+          <div class="body">
+            <h3>3P Calculator</h3>
+            <p>
+              Offline tracker to calculate 3P Mahjong Score. — click for
+              details.
+            </p>
+          </div>
+        </a>
 
-      <a class="card" href="MahjongPPP/MahjongPongPongPong.html">
-        <span class="thumb">
-          <img src="MahjongPPP/img/WZ_logo.png" alt="MahjongPongPongPong Backgroud" loading="lazy" />
-        </span>
-        <div class="body">
-          <h3>Mahjong Pong Pong Pong Countdown Website</h3>
-          <p>Create for 3P Mahjong Game Website. Preview only — click for details.</p>
-        </div>
-      </a>
+        <a class="card" href="MahjongPPP/MahjongPongPongPong.html">
+          <span class="thumb">
+            <img
+              src="MahjongPPP/img/WZ_logo.png"
+              alt="MahjongPongPongPong Backgroud"
+              loading="lazy"
+            />
+          </span>
+          <div class="body">
+            <h3>Mahjong Pong Pong Pong Countdown Website</h3>
+            <p>
+              Create for 3P Mahjong Game Website. Preview only — click for
+              details.
+            </p>
+          </div>
+        </a>
+      </div>
+    </main>
 
-    </div>
-  </main>
+    <footer class="footer">
+      © <span id="y"></span> Lee Keng Tiong — Built with GitHub Pages
+    </footer>
 
-  <footer class="footer">
-    © <span id="y"></span> Lee Keng Tiong — Built with GitHub Pages
-  </footer>
-
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
-</body>
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </body>
 </html>
