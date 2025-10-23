@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CJ - Portfolio</title>
+    <link rel="icon" href="../images/Logo.png" />
+    <link rel="stylesheet" href="gamestyle.css" />
+  </head>
+  <body>
+    <a href="../index.html" class="back-btn">← Back to Main Page</a>
+
+    <main>
+      <div class="container">
+        <h1>My Game Testing Portfolio</h1>
+        <p class="intro">
+          A showcase of games I’ve tested — focusing on gameplay balance, UI/UX,
+          and player experience quality.
+        </p>
+
+        <div class="grid">
+          <div class="game-card" onclick="openStore('mahjongPPP')">
+            <img src="img/MJPPP_logo.jpg" alt="Mahjong PongPongPong" />
+            <h3>Mahjong PongPongPong</h3>
+          </div>
+
+          <div class="game-card" onclick="openStore('skyage')">
+            <img src="img/SKYAGE_logo.jpg" alt="Sky Age" />
+            <h3>Sky Age</h3>
+          </div>
+
+          <div class="game-card" onclick="openStore('footballrisingstar')">
+            <img src="img/FRS_logo.jpg" alt="Football Rising Star" />
+            <h3>Football Rising Star</h3>
+          </div>
+
+          <div
+            class="game-card"
+            onclick="window.open('https://store.steampowered.com/app/823950/ReLegend/', '_blank')"
+          >
+            <img src="img/ReLegend_logo.jpg" alt="Re:Legend" />
+            <h3>Re:Legend</h3>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      © <span id="y"></span> Lee Keng Tiong — Built with GitHub Pages
+    </footer>
+
+    <script>
+      function openStore(app) {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const isAndroid = /Android/.test(navigator.userAgent);
+
+        const storeLinks = {
+          mahjongPPP: {
+            android:
+              "https://play.google.com/store/apps/details?id=com.acezmeta.pongpongpong",
+            ios: "https://apps.apple.com/us/app/%E7%8E%8B%E8%80%85%E7%A2%B0%E7%A2%B0%E7%A2%B0/id6736929504",
+          },
+          skyage: {
+            android:
+              "https://play.google.com/store/apps/details?id=com.IXICreativeSdnBhd.SkyAge",
+          },
+          footballrisingstar: {
+            android:
+              "https://play.google.com/store/apps/details?id=com.babuyo.footy.tc.android",
+            ios: "https://apps.apple.com/my/app/football-rising-star/id1585604439",
+          },
+        };
+
+        const appLinks = storeLinks[app];
+        if (!appLinks) return;
+
+        if (isAndroid && appLinks.android) {
+          window.open(appLinks.android, "_blank");
+        } else if (isIOS && appLinks.ios) {
+          window.open(appLinks.ios, "_blank");
+        } else {
+          window.open(appLinks.android, "_blank");
+        }
+      }
+
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
