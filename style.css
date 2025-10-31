@@ -1,164 +1,134 @@
-/* ========== Theme (Tiffany Blue) ========== */
-:root {
-  --tiffany: #81d8d0; /* primary */
-  --tiffany-dark: #5bc6be; /* hover/active */
-  --ice: #e7fbfb; /* very light blue background */
-  --ink: #0f172a; /* main text (near-slate) */
-  --muted: #5b6677;
-  --card: #ffffff;
-  --border: #e6eaf0;
-  --shadow: 0 10px 24px rgba(12, 20, 33, 0.12);
-  --radius: 16px;
-  --maxw: 1080px;
-}
-
-/* ========== Base ========== */
-* {
-  box-sizing: border-box;
-}
-html,
-body {
-  height: 100%;
-}
+/* Base layout */
 body {
   margin: 0;
-  font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
-    sans-serif;
-  color: var(--ink);
-  background: linear-gradient(to bottom, #0f172a, #5b6b7d, #f8ffff);
-  display: flex;
-  flex-direction: column;
+  font-family: "Press Start 2P", monospace;
+  color: #fff;
+  background: transparent; /* Let PIXI background show */
+  overflow-x: hidden;
 }
 
-/* ========== Header ========== */
-.header {
-  padding: 40px 20px 10px;
-  max-width: var(--maxw);
-  margin: 0 auto;
-}
-.badge {
-  display: inline-block;
-  font-size: 12px;
-  color: #023131;
-  background: var(--tiffany);
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-weight: 600;
-}
-h1 {
-  margin: 12px 0 8px;
-  font-size: clamp(28px, 4vw, 40px);
-  line-height: 1.2;
-  color: var(--ice);
-}
-.lead {
-  color: var(--card);
-  margin: 8px 0 20px;
-  max-width: 70ch;
+/* 🌊 Keep PIXI background fixed */
+.background-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none; /* So clicks scroll the content */
 }
 
-/* ========== Nav ========== */
-.nav a {
-  color: var(--ink);
-  text-decoration: none;
-  background: var(--card);
-  border: 1px solid var(--border);
-  padding: 8px 12px;
-  border-radius: 10px;
-  margin-right: 8px;
-  display: inline-block;
-  transition: all 0.15s ease;
-}
-.nav a:hover {
-  border-color: var(--tiffany);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--tiffany) 25%, transparent);
-}
-
-/* ========== Grid/Cards ========== */
-.wrap {
-  max-width: var(--maxw);
-  margin: 20px auto 44px;
-  padding: 0 20px;
-}
-.grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
+.section,
+.navbar,
+.footer {
+  position: relative;
+  z-index: 1; /* Bring all content above the PIXI layer */
 }
 
 .card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  outline: var(--ink) solid 1.5px;
-  border-radius: var(--radius);
-  width: calc(50% - 8px);
-  text-decoration: none;
-  color: inherit;
-  overflow: hidden;
-  transition: transform 0.12s ease, box-shadow 0.12s ease,
-    border-color 0.12s ease, translate 0.12s ease;
-}
-@media (min-width: 900px) {
-  .card {
-    width: calc(25% - 12px);
-  }
-}
-
-.thumb {
-  aspect-ratio: 16/10;
-  background: #dff7f5;
-  display: block;
-  overflow: hidden;
-}
-.thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  filter: saturate(1.05) contrast(1.02);
-}
-
-.card .body {
-  padding: 14px;
-}
-.card h3 {
-  margin: 2px 0 6px;
-  font-size: 16px;
-}
-.card p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  border-color: var(--tiffany);
-  box-shadow: var(--shadow);
-}
-
-/* ========== Buttons ========== */
-.btn {
-  display: inline-block;
-  text-decoration: none;
-  background: var(--tiffany);
-  color: #023131;
-  font-weight: 600;
-  padding: 10px 18px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(129, 216, 208, 0.6);
   border-radius: 12px;
-  transition: all 0.2s ease;
-}
-.btn:hover {
-  background: var(--tiffany-dark);
-  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(129, 216, 208, 0.3);
+  color: #e7fbfb;
+  text-align: center;
+  padding: 40px 30px;
 }
 
-/* ========== Footer ========== */
+/* Keep navbar same */
+.navbar {
+  background: #2b8ca3;
+  padding: 10px 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.navbar a:hover {
+  color: #81d8d0;
+}
+
+/* Sections */
+.section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 80px;
+}
+
+.section.visible .card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Cards inside apps/games section */
+.app-showcase,
+.game-showcase {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.app-card,
+.game-card {
+  background: rgba(255, 255, 255, 0.5);
+  padding: 10px;
+  border: 1px solid #5bc6be;
+  border-radius: 10px;
+  width: 160px;
+}
+
+.game-card p{
+  margin-top: 10px;
+  font-size: 14px;
+  color: #000;
+}
+
+.app-card img,
+.game-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* Footer */
 .footer {
-  margin-top: auto;
-  padding: 20px;
   text-align: center;
-  color: var(--muted);
-  border-top: 1px solid var(--border);
-  background: color-mix(in srgb, var(--tiffany) 4%, transparent);
+  padding: 20px;
+  color: #81d8d0;
+  background: rgba(0, 0, 0, 0.8);
+  border-top: 2px solid #5bc6be;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

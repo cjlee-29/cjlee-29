@@ -2,117 +2,116 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CJ - Portfolio</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>CJ — Portfolio</title>
     <link rel="icon" href="images/Logo.png" />
-    <meta
-      name="description"
-      content="Portfolio of Lee Keng Tiong – Game QA / Software Tester and Web/App Projects."
-    />
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- PixiJS CDN -->
+    <script src="https://unpkg.com/pixi.js@7/dist/pixi.min.js"></script>
   </head>
   <body>
-    <header class="header">
-      <h1>
-        Hi there! I’m Lee Keng Tiong (CJ) — a Game QA and Software Tester who
-        enjoys building clean, user-friendly apps and websites.
-      </h1>
-      <p class="lead">
-        I focus on improving user experience, ensuring quality through careful
-        testing, and experimenting with creative tools that make everyday tasks
-        simpler. Welcome to my portfolio — feel free to explore my projects and
-        see what I’ve been working on!
+    <!-- 🌊 Animated Background -->
+    <div id="lake" class="background-layer"></div>
+
+    <!-- 🧭 Navigation -->
+     <nav class="navbar">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <!--<li><a href="#about">About</a></li>-->
+      <li><a href="#apps">Apps</a></li>
+      <li><a href="#games">Games</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+      <!-- Section 1: Home -->
+  <section id="home" class="section">
+    <div class="card">
+      <h1>Welcome to My Portfolio</h1>
+      <p>Explore my projects, apps, and game testing experiences.</p>
+    </div>
+  </section>
+
+  <!-- Section 2: About 
+  <section id="about" class="section">
+    <div class="card">
+      <h2>About Me</h2>
+      <p>
+        Hi! I’m CJ — a QA tester and software developer passionate about creating interactive
+        and user-friendly experiences.
       </p>
+    </div>
+  </section>
+  -->
 
-      <nav class="nav">
-        <a href="mailto:cjlee220011@gmail.com">Email</a>
-        <a href="https://github.com/cjlee-29" target="_blank" rel="noopener"
-          >GitHub</a
-        >
-        <a
-          href="https://www.linkedin.com/in/cjlee29/"
-          target="_blank"
-          rel="noopener"
-          >LinkedIn</a
-        >
-      </nav>
-    </header>
-
-    <main class="wrap">
-      <div class="grid">
-        <a class="card" href="MahjongCalculator/MahjongCalculator.html">
-          <span class="thumb">
-            <img
-              src="images/3PMahjongCalculator.png"
-              alt="Preview of 3P Mahjong Calculator"
-              loading="lazy"
-            />
-          </span>
-          <div class="body">
-            <h3>3P Calculator</h3>
-            <p>
-              Offline tracker to calculate 3P Mahjong Score. — click for
-              details.
-            </p>
-          </div>
-        </a>
-
-        <a class="card" href="MahjongPPP/MahjongPongPongPong.html">
-          <span class="thumb">
-            <img
-              src="MahjongPPP/img/WZ_logo.png"
-              alt="MahjongPongPongPong Backgroud"
-              loading="lazy"
-            />
-          </span>
-          <div class="body">
-            <h3>Mahjong Pong Pong Pong Countdown Website</h3>
-            <p>
-              Create for 3P Mahjong Game Website. Preview only — click for
-              details.
-            </p>
-          </div>
-        </a>
-
-        <a class="card" href="GameTesting/gameTestingApp.html">
-          <span class="thumb">
-            <img
-              src="images/GameTestingLogo.png"
-              alt="MahjongPongPongPong Backgroud"
-              loading="lazy"
-            />
-          </span>
-          <div class="body">
-            <h3>Game Testing</h3>
-            <p>Game Test for previous projects — click for details.</p>
-          </div>
-        </a>
-
-        <a class="card" href="EasyInventory/EasyInventory.html">
-          <span class="thumb">
-            <img
-              src="images/EasyInventory_Logo.png"
-              alt="Preview of EasyInventory App"
-              loading="lazy"
-            />
-          </span>
-          <div class="body">
-            <h3>EasyInventory</h3>
-            <p>
-              Offline inventory management tool for tracking items and supplies.
-              — click for details.
-            </p>
-          </div>
-        </a>
+  <!-- Section 3: Apps -->
+  <section id="apps" class="section">
+    <div class="card">
+      <h2>My Apps</h2>
+      <div class="app-showcase">
+        <div class="app-card">
+          <img src="images/3PMahjongCalculator.png" alt="3P Mahjong Calculator" />
+          <p>3P Mahjong Calculator</p>
+        </div>
+        <div class="app-card">
+          <img src="images/EasyInventory_Logo.png" alt="Easy Inventory" />
+          <p>Easy Inventory</p>
+        </div>
       </div>
-    </main>
+    </div>
+  </section>
+
+  <!-- Section 4: Games -->
+  <section id="games" class="section">
+    <div class="card">
+      <h2>Games Testing Project</h2>
+      <p class="intro">
+          A showcase of games I’ve tested — focusing on gameplay balance, UI/UX,
+          and player experience quality.
+        </p>
+      <div class="game-showcase">
+        <a href="https://skyage.ixi.my/" target="_blank" class="game-card">
+          <img src="images/SKYAGE_logo.jpg" />
+          <p>Sky Age</p>
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=com.acezmeta.pongpongpong" target="_blank" class="game-card">
+          <img src="images/MJPPP_logo.jpg" />
+          <p>Mahjong PongPongPong</p>
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=com.babuyo.footy.tc.android" target="_blank" class="game-card">
+          <img src="images/FRS_logo.jpg" />
+          <p>Football Rising Star</p>
+        </a>
+        <a href="https://store.steampowered.com/app/823950/ReLegend/" target="_blank" class="game-card">
+          <img src="images/ReLegend_logo.jpg" />
+          <p>Re:Legend</p>
+        </a>
+    </div>
+  </section>
+
+  <!-- Section 5: Contact -->
+  <section id="contact" class="section">
+    <div class="card">
+      <h2>Contact Me</h2>
+      <p>Email: <a href="mailto:cjlee220011@gmail.com">cjlee220011@gmail.com</a></p>
+      <p>LinkedIn: <a href="https://www.linkedin.com/in/cjlee29/">cjlee29</a></p>
+    </div>
+  </section>
 
     <footer class="footer">
-      © <span id="y"></span> Lee Keng Tiong — Built with GitHub Pages
+      © <span id="y"></span>Lee Keng Tiong — Built with GitHub Pages
     </footer>
 
     <script>
       document.getElementById("y").textContent = new Date().getFullYear();
     </script>
+    <script src="fadeScroll.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>
