@@ -32,7 +32,8 @@ body {
   box-shadow: 0 0 20px rgba(129, 216, 208, 0.3);
   color: #e7fbfb;
   text-align: center;
-  padding: 40px 30px;
+  max-width: 900px;
+  padding: 30px 20px;
 }
 
 /* Keep navbar same */
@@ -101,7 +102,7 @@ body {
   width: 160px;
 }
 
-.game-card p{
+.game-card p {
   margin-top: 10px;
   font-size: 14px;
   color: #000;
@@ -131,5 +132,102 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.app-slider {
+  position: relative;
+  overflow: hidden;
+  max-width: 800px;
+  margin: 0 auto;
+  min-height: 480px;
+  padding: 20px;
+}
+
+.app-slide {
+  display: none;
+  animation: fade 0.5s ease;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(129, 216, 208, 0.4);
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 0 15px rgba(129, 216, 208, 0.2);
+}
+
+.app-slide.active {
+  display: block;
+}
+
+.preview-gallery {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 8px 0;
+  margin: 15px 0;
+}
+
+.preview-gallery img {
+  height: 120px;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+.preview-gallery img:hover {
+  transform: scale(1.05);
+}
+
+.info-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.btn {
+  background: #81d8d0;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  background: #5bc6be;
+}
+
+.app-nav {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.app-nav button {
+  background: rgba(129, 216, 208, 0.2);
+  border: 1px solid #81d8d0;
+  color: #81d8d0;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.app-nav button:hover {
+  background: rgba(129, 216, 208, 0.4);
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
